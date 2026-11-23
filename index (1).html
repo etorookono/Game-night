@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Night | Saturday, 28 November</title>
+<meta name="description" content="A sober, quiet evening of group games and good company. Thirty seats. By invitation only.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --felt: #0f3b2e;
+    --felt-deep: #0a2a21;
+    --felt-light: #174b3b;
+    --ivory: #f4ecd8;
+    --ivory-dim: #cfc8b4;
+    --card-red: #d2402f;
+    --line: rgba(244, 236, 216, 0.18);
+    --display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --body: 'Figtree', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--felt);
+    color: var(--ivory);
+    font-family: var(--body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a:focus-visible, summary:focus-visible, .btn:focus-visible {
+    outline: 3px solid var(--card-red);
+    outline-offset: 3px;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background:
+      radial-gradient(ellipse at 50% 0%, var(--felt-light) 0%, transparent 65%),
+      var(--felt);
+    padding: 72px 0 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .suits {
+    position: absolute; inset: 0;
+    font-family: var(--display);
+    color: var(--ivory);
+    opacity: 0.045;
+    font-size: clamp(6rem, 22vw, 16rem);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .suits span { position: absolute; }
+  .suits .s1 { top: 4%; left: -2%; transform: rotate(-12deg); }
+  .suits .s2 { top: 10%; right: -3%; transform: rotate(14deg); color: var(--card-red); opacity: 0.9; }
+  .suits .s3 { bottom: 4%; left: 6%; transform: rotate(8deg); color: var(--card-red); opacity: 0.9; }
+  .suits .s4 { bottom: 0; right: 2%; transform: rotate(-10deg); }
+  .hero .wrap { position: relative; z-index: 1; text-align: center; }
+  .invite-line {
+    font-size: 1rem;
+    color: var(--ivory-dim);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(3.6rem, 16vw, 9rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+  .tagline {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.25rem, 4vw, 1.8rem);
+    color: var(--ivory);
+    margin: 26px auto 0;
+    max-width: 560px;
+  }
+  .when {
+    margin-top: 28px;
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+  .when em { font-style: normal; color: var(--card-red); font-weight: 600; }
+
+  /* COUNTDOWN CARDS */
+  .count {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  .card {
+    width: 82px;
+    background: var(--ivory);
+    color: var(--felt-deep);
+    border-radius: 10px;
+    padding: 14px 0 10px;
+    box-shadow: 0 10px 0 -4px rgba(0,0,0,0.25);
+  }
+  .card:nth-child(odd) { transform: rotate(-2.5deg); }
+  .card:nth-child(even) { transform: rotate(2deg); }
+  .card b {
+    display: block;
+    font-family: var(--display);
+    font-size: 2.3rem;
+    line-height: 1;
+    font-weight: 700;
+  }
+  .card small {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .live-note {
+    margin-top: 40px;
+    font-family: var(--display);
+    font-size: 2rem;
+    display: none;
+  }
+
+  .btn {
+    display: inline-block;
+    margin-top: 44px;
+    padding: 18px 40px;
+    background: var(--card-red);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    border-radius: 999px;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .btn:hover { background: #e24a38; transform: translateY(-3px); }
+  .hero-sub { margin-top: 18px; font-size: 0.92rem; color: var(--ivory-dim); }
+
+  /* SECTIONS */
+  section { padding: 88px 0; border-top: 1px solid var(--line); }
+  section.alt { background: var(--felt-deep); }
+  h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  p + p { margin-top: 1.2em; }
+  .lead {
+    font-family: var(--display);
+    font-size: clamp(1.3rem, 3.6vw, 1.7rem);
+    line-height: 1.5;
+    font-weight: 400;
+    margin-bottom: 1.4em;
+  }
+  .prose { max-width: 66ch; color: var(--ivory-dim); }
+  .prose strong { color: var(--ivory); font-weight: 600; }
+
+  /* EVENING FLOW */
+  .flow { list-style: none; counter-reset: step; margin-top: 12px; }
+  .flow li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .flow li:last-child { border-bottom: none; }
+  .flow li::before {
+    content: counter(step);
+    font-family: var(--display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--card-red);
+  }
+  .flow h3 {
+    font-family: var(--display);
+    font-size: 1.45rem;
+    margin-bottom: 6px;
+  }
+  .flow p { color: var(--ivory-dim); max-width: 56ch; }
+
+  /* GAMES */
+  .games {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-top: 28px;
+  }
+  .games span {
+    border: 1px solid var(--line);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  /* DETAILS */
+  .details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+    margin-top: 12px;
+  }
+  .detail {
+    background: var(--felt);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 24px;
+  }
+  .detail dt { font-size: 0.9rem; color: var(--ivory-dim); margin-bottom: 8px; }
+  .detail dd { font-family: var(--display); font-size: 1.45rem; line-height: 1.3; font-weight: 500; }
+  .detail dd small { display: block; font-family: var(--body); font-size: 0.92rem; color: var(--ivory-dim); margin-top: 8px; }
+
+  /* RULES */
+  .rules { list-style: none; max-width: 66ch; }
+  .rules li { padding: 14px 0 14px 30px; position: relative; color: var(--ivory-dim); border-bottom: 1px solid var(--line); }
+  .rules li::before {
+    content: '\2660';
+    position: absolute; left: 0; top: 14px;
+    color: var(--card-red);
+  }
+  .rules strong { color: var(--ivory); font-weight: 600; }
+
+  /* FAQ */
+  details { border-bottom: 1px solid var(--line); padding: 20px 0; }
+  summary {
+    cursor: pointer;
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    list-style: none;
+    display: flex; justify-content: space-between; gap: 16px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; color: var(--card-red); font-size: 1.5rem; line-height: 1; }
+  details[open] summary::after { content: '\2212'; }
+  details p { margin-top: 12px; color: var(--ivory-dim); max-width: 62ch; }
+
+  /* CLOSING */
+  .closing { text-align: center; }
+  .closing h2 { margin-bottom: 18px; }
+  .closing .prose { margin: 0 auto; }
+  footer {
+    padding: 36px 24px 48px;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--ivory-dim);
+    background: var(--felt-deep);
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 520px) {
+    .card { width: 68px; }
+    .card b { font-size: 1.9rem; }
+    .count { gap: 10px; }
+    .flow li { grid-template-columns: 40px 1fr; gap: 14px; }
+    section { padding: 68px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="suits" aria-hidden="true">
+    <span class="s1">&#9824;</span>
+    <span class="s2">&#9829;</span>
+    <span class="s3">&#9830;</span>
+    <span class="s4">&#9827;</span>
+  </div>
+  <div class="wrap">
+    <p class="invite-line">You've been invited to</p>
+    <h1>Game Night</h1>
+    <p class="tagline">No alcohol. No loud music. Just good company and a table full of games.</p>
+    <p class="when">Saturday, 28 November 2026 &middot; <em>4:00 PM</em></p>
+
+    <div class="count" id="count" aria-label="Countdown to Game Night">
+      <div class="card"><b id="d">--</b><small>days</small></div>
+      <div class="card"><b id="h">--</b><small>hours</small></div>
+      <div class="card"><b id="m">--</b><small>minutes</small></div>
+      <div class="card"><b id="s">--</b><small>seconds</small></div>
+    </div>
+    <p class="live-note" id="live">It's Game Night.</p>
+
+    <a class="btn" href="https://wa.me/2348166991415?text=Hi%2C%20I%27d%20like%20to%20request%20a%20seat%20at%20Game%20Night%20on%20Saturday%2C%2028%20November">Request your seat</a>
+    <p class="hero-sub">Only 30 seats. Each one is held by hand.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>A different kind of evening</h2>
+    <p class="lead">Most parties ask you to shout over the music just to learn someone's name. This one doesn't.</p>
+    <div class="prose">
+      <p>Game Night is a small, carefully chosen gathering for people who like being around people. The room stays calm. The music stays low. Nobody is drinking, nobody is performing, and nobody has to pretend to be someone they're not. What you get is a table, a good crowd, and a set of games that turn strangers into teammates faster than any icebreaker ever could.</p>
+      <p>You'll <strong>accuse your new friend of being the Mafia</strong> and then laugh about it. You'll act out a movie title in front of people you met an hour ago. You'll find out who is quietly brilliant, who is secretly hilarious, and who you want to keep in touch with long after the evening is over.</p>
+      <p>It's designed to be the kind of night where you leave with real conversations, new contacts you actually want to message, and the feeling that you spent your Saturday well. Come curious. Come as you are.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>How the evening unfolds</h2>
+    <p class="prose">About four hours, start to finish, with a natural rhythm so you're never stuck wondering what to do next.</p>
+    <ol class="flow">
+      <li>
+        <div>
+          <h3>Arrive and settle in</h3>
+          <p>Check in, collect your refreshment, and find your spot. The room is warm, relaxed and easy to walk into, even if you're coming alone.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Break the ice</h3>
+          <p>A short welcome from your host, then light, fast games that get everyone talking and laughing before the main event begins.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>The main games</h3>
+          <p>Group games with real stakes and real laughs: bluffing, guessing, acting, and a little friendly betrayal. Everyone plays, and no experience is needed.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Stay and connect</h3>
+          <p>As the games wind down, the conversations keep going. This is the part where new contacts turn into real connections.</p>
+        </div>
+      </li>
+    </ol>
+    <div class="games" aria-label="Games on the table">
+      <span>Mafia</span>
+      <span>Charades</span>
+      <span>Group guessing games</span>
+      <span>Team challenges</span>
+      <span>And a few surprises</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The details</h2>
+    <dl class="details">
+      <div class="detail">
+        <dt>Date</dt>
+        <dd>Saturday, 28 November 2026</dd>
+      </div>
+      <div class="detail">
+        <dt>Time</dt>
+        <dd>4:00 PM<small>About four hours, wrapping up in the evening</small></dd>
+      </div>
+      <div class="detail">
+        <dt>Your pass</dt>
+        <dd>&#8358;5,000<small>Includes your refreshment of choice</small></dd>
+      </div>
+      <div class="detail">
+        <dt>Seats</dt>
+        <dd>30 only<small>By invitation, first edition</small></dd>
+      </div>
+      <div class="detail">
+        <dt>Venue</dt>
+        <dd>Shared with confirmed guests<small>You'll get the address once your seat is secured</small></dd>
+      </div>
+      <div class="detail">
+        <dt>Refreshments</dt>
+        <dd>Pick yours in advance<small>Confirmed guests choose from a short menu</small></dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>What makes it work</h2>
+    <ul class="rules">
+      <li><strong>Alcohol-free.</strong> Everyone is clear-headed, present and able to remember the night.</li>
+      <li><strong>Low music.</strong> Soft background sound only, so you can hear every joke and every accusation.</li>
+      <li><strong>Small and chosen.</strong> Thirty people who were thought of personally, not a crowd of whoever showed up.</li>
+      <li><strong>Everyone plays.</strong> No spectators, no wallflowers. If you can laugh, you can play.</li>
+      <li><strong>Come ready to meet people.</strong> Bring your energy, your curiosity and your phone for contacts.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Questions you might have</h2>
+    <details>
+      <summary>How do I get a seat?</summary>
+      <p>Tap Request your seat and send a message on WhatsApp. Once your seat is confirmed and your payment is made, you'll receive your personal pass and the venue details.</p>
+    </details>
+    <details>
+      <summary>What does the pass cost?</summary>
+      <p>The pass is &#8358;5,000 and includes a refreshment of your choice. Confirmed guests will pick their refreshment ahead of the day, so it's ready when you arrive.</p>
+    </details>
+    <details>
+      <summary>I've never played Mafia. Is that a problem?</summary>
+      <p>Not at all. Every game is explained before it begins, and you'll pick it up within one round. Beginners are often the most entertaining players.</p>
+    </details>
+    <details>
+      <summary>Can I come alone?</summary>
+      <p>Yes, and many people will. The games are built to mix the room, so you'll be part of a group within minutes.</p>
+    </details>
+    <details>
+      <summary>Is it an all-night thing?</summary>
+      <p>No. It starts at 4:00 PM and runs for about four hours, so you can enjoy your evening and still get home comfortably.</p>
+    </details>
+    <details>
+      <summary>Where is it?</summary>
+      <p>The venue is shared only with confirmed guests. You'll receive the address once your seat is secured.</p>
+    </details>
+  </div>
+</section>
+
+<section class="alt closing">
+  <div class="wrap">
+    <h2>Your seat is waiting</h2>
+    <div class="prose">
+      <p>There are only thirty places, and every one of them is for someone who belongs at this table. If that sounds like you, message us and we'll hold your seat.</p>
+    </div>
+    <a class="btn" href="https://wa.me/2348166991415?text=Hi%2C%20I%27d%20like%20to%20request%20a%20seat%20at%20Game%20Night%20on%20Saturday%2C%2028%20November">Request your seat</a>
+  </div>
+</section>
+
+<footer>
+  <p>Game Night &middot; Saturday, 28 November 2026 &middot; 4:00 PM</p>
+</footer>
+
+<script>
+  // Event start: 28 Nov 2026, 4:00 PM Nigeria time (UTC+1)
+  var target = new Date('2026-11-28T16:00:00+01:00').getTime();
+  var els = {
+    d: document.getElementById('d'),
+    h: document.getElementById('h'),
+    m: document.getElementById('m'),
+    s: document.getElementById('s')
+  };
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function tick() {
+    var diff = target - Date.now();
+    if (diff <= 0) {
+      document.getElementById('count').style.display = 'none';
+      document.getElementById('live').style.display = 'block';
+      return;
+    }
+    els.d.textContent = Math.floor(diff / 86400000);
+    els.h.textContent = pad(Math.floor(diff % 86400000 / 3600000));
+    els.m.textContent = pad(Math.floor(diff % 3600000 / 60000));
+    els.s.textContent = pad(Math.floor(diff % 60000 / 1000));
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
